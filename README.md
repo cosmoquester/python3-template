@@ -6,5 +6,4 @@
 
 - "README.md" file contents
 - "setup.py" file contents
-- "sample_config" file
 - "sample_package" directory name
