@@ -6,9 +6,8 @@ executors:
     docker:
       - image: circleci/python:3.8
 
-jobs:
-  run-test:
-    executor: python-executor
+commands:
+  install-packages:
     steps:
       - checkout
 
@@ -26,6 +25,12 @@ jobs:
           key: deps-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
           paths:
             - "env"
+
+jobs:
+  run-test:
+    executor: python-executor
+    steps:
+      - install-packages
 
       - run:
           name: Run Tests
@@ -42,22 +47,7 @@ jobs:
   check-linting:
     executor: python-executor
     steps:
-      - checkout
-
-      - restore_cache:
-          key: deps-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
-
-      - run:
-          name: Create Virtual Environment and Install Dependencies
-          command: |
-            virtualenv env
-            source env/bin/activate
-            pip install -r requirements.txt -r requirements-dev.txt
-
-      - save_cache:
-          key: deps-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
-          paths:
-            - "env"
+      - install-packages
 
       - run:
           name: Run black, isort
