@@ -11,3 +11,4 @@
 - "README.md" file contents
 - "setup.py" file contents
 - "sample_package" directory name
+- ".circleci/config.yml" file contents
