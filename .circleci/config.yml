@@ -39,7 +39,7 @@ jobs:
           name: Run Tests
           command: |
             source env/bin/activate
-            pytest --cov-branch --cov --cov-report=xml sample_package
+            pytest --cov-branch --cov --cov-report=xml
 
       - codecov/upload
 
