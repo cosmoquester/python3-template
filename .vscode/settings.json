@@ -1,12 +1,15 @@
 {
-    "python.pythonPath": "env/bin/python",
-    "python.formatting.provider": "black",
     "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true,
         "editor.codeActionsOnSave": {
-            "source.organizeImports": true
-        }
+            "source.organizeImports": "explicit"
+        },
     },
-    "editor.formatOnSave": true,
+    "isort.args": [
+        "--profile",
+        "black"
+    ],
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true
 }
