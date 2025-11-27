@@ -1,10 +1,11 @@
-[tool.black]
+[tool.ruff]
 line-length = 120
-include = '\.pyi?$'
 
-[tool.isort]
-multi_line_output = 3
-line_length = 120
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
 
 [tool.pyright]
 reportUnknownVariableType = false
@@ -14,7 +15,6 @@ reportUnusedVariable = true
 reportUnusedClass = true
 reportUnusedFunction = true
 reportImportCycles = true
-reportTypeshedErrors = true
 reportOptionalMemberAccess = true
 reportUntypedBaseClass = true
 reportPrivateUsage = true
