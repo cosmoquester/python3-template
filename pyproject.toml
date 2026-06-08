@@ -14,6 +14,14 @@ authors = [{ name = "Park Sangjun" }]
 [project.urls]
 Repository = "https://github.com/cosmoquester/python3-template.git"
 
+[dependency-groups]
+dev = [
+    "ruff",
+    "pytest",
+    "pytest-cov",
+    "codecov",
+]
+
 [tool.setuptools.packages.find]
 exclude = ["tests*"]
 

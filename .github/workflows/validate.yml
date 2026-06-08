@@ -18,14 +18,10 @@ jobs:
           enable-cache: true
 
       - name: Install Dependencies
-        run: |
-          uv venv --allow-existing
-          uv pip install -r requirements.txt -r requirements-dev.txt
+        run: uv sync
 
       - name: Run Tests
-        run: |
-          source .venv/bin/activate
-          pytest --cov-branch --cov --cov-report=xml
+        run: uv run pytest --cov-branch --cov --cov-report=xml
 
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v5
@@ -49,11 +45,7 @@ jobs:
           enable-cache: true
 
       - name: Install Dependencies
-        run: |
-          uv venv --allow-existing
-          uv pip install -r requirements.txt -r requirements-dev.txt
+        run: uv sync
 
       - name: Run Ruff
-        run: |
-          source .venv/bin/activate
-          ruff check sample_package tests
+        run: uv run ruff check sample_package tests
