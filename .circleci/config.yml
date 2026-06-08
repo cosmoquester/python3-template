@@ -1,13 +1,8 @@
 version: 2.1
 
 orbs:
-  codecov: codecov/codecov@4.0.1
-
-executors:
-  python-executor:
-    working_directory: ~/python3-template
-    docker:
-      - image: circleci/python:3.8
+  codecov: codecov/codecov@5
+  python: circleci/python@4.0.0
 
 commands:
   install-packages:
@@ -20,40 +15,41 @@ commands:
       - run:
           name: Create Virtual Environment and Install Dependencies
           command: |
-            virtualenv env
-            source env/bin/activate
-            pip install -r requirements.txt -r requirements-dev.txt
+            uv venv --allow-existing
+            source .venv/bin/activate
+            uv pip install -r requirements.txt -r requirements-dev.txt
 
       - save_cache:
           key: deps-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
           paths:
-            - "env"
+            - ".venv"
 
 jobs:
   run-test:
-    executor: python-executor
+    executor: &python-executor
+      name: python/default
+      tag: "3.12.12"
     steps:
       - install-packages
 
       - run:
           name: Run Tests
           command: |
-            source env/bin/activate
+            source .venv/bin/activate
             pytest --cov-branch --cov --cov-report=xml
 
       - codecov/upload
 
   check-linting:
-    executor: python-executor
+    executor: *python-executor
     steps:
       - install-packages
 
       - run:
-          name: Run black, isort
+          name: Run Ruff
           command: |
-            source env/bin/activate
-            black --check sample_package tests
-            isort sample_package tests
+            source .venv/bin/activate
+            ruff check sample_package tests
 
 workflows:
   main:
