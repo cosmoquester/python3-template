@@ -1,7 +1,6 @@
 version: 2.1
 
 orbs:
-  codecov: codecov/codecov@5
   python: circleci/python@4.0.0
 
 commands:
@@ -38,7 +37,11 @@ jobs:
             source .venv/bin/activate
             pytest --cov-branch --cov --cov-report=xml
 
-      - codecov/upload
+      - run:
+          name: Upload Coverage to Codecov
+          command: |
+            source .venv/bin/activate
+            codecov -f coverage.xml
 
   check-linting:
     executor: *python-executor
