@@ -8,20 +8,8 @@ commands:
     steps:
       - checkout
 
-      - restore_cache:
-          key: deps-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
-
-      - run:
-          name: Create Virtual Environment and Install Dependencies
-          command: |
-            uv venv --allow-existing
-            source .venv/bin/activate
-            uv pip install -r requirements.txt -r requirements-dev.txt
-
-      - save_cache:
-          key: deps-{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}
-          paths:
-            - ".venv"
+      - python/install-packages:
+          pkg-manager: uv
 
 jobs:
   run-test:
