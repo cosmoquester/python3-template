@@ -1,3 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "python3-template"
+version = "0.0.1"
+description = "This repository is template for my python project."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+authors = [{ name = "Park Sangjun" }]
+
+[project.urls]
+Repository = "https://github.com/cosmoquester/python3-template.git"
+
+[tool.setuptools.packages.find]
+exclude = ["tests*"]
+
 [tool.ruff]
 line-length = 120
 
