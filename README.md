@@ -8,6 +8,6 @@
 ## Things to be changed
 
 - "README.md" file contents
-- "setup.py" file contents
+- "pyproject.toml" file contents
 - "sample_package" directory name
 - ".circleci/config.yml" file contents
